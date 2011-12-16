@@ -1,2 +1,91 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="hero-unit">
+	<h1>Freedom Needs You</h1>
+	<p>To Corporations and Congress,</p>
+	<p>The Internet is my connection to my friends. My tool for work. My source of entertainment. 
+	My vent for emotions. My shopping mall and my food court. My place of brothers and sisters, trolls and flamers.
+	It belongs to me and others like me far more than it belongs to you.</p> 
+	<p>I will not lie down and let these <%= link_to "corporations", "#row" %> roll over me</p>
+	<p>I will stand up against the <%= link_to "politicians", "#politicians" %></p>
+	<p>I will boycott, protest, send emails, call phone numbers, sign petitions, tell everyone i know.</p>
+	<p>I will fight back</p>
+	<p>Signed,</p>
+	<%= form_for @petition do |f| %>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+		<br />
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+		<%= f.submit "Send Email" %>
+	<% end %>
+</div>
+
+<div class="row corporations">
+	<div class="span-one-third">
+		<h2>SOPA's Supporters</h2>
+		<% unless @corporations.nil? %>
+		<ul>
+		<% @corporations.each do |corporation| %>
+			<li class="<%= corporation.name %>">
+				<%= link_to corporation.name, root_path( :corporation => corporation.id ) + "#corporation" %>
+			</li>
+		<% end %>
+		</ul>
+		<% else %>
+		<p>This should be filled right away</p>
+		<% end %>
+	</div>
+	<div class="span-one-third">
+		<h2>Fight the Injustice</h2>
+		<% if @boycott.nil? %>
+		<p>Click on a corporation to learn more about them<p>
+		<% else %>
+		<h3>against <%= @boycott.name %></h3>
+		<p>[Information here]</p>
+		<% end %>
+	</div>
+	<div class="span-one-third">
+		<h2>Boycott Alternatives</h2>
+		<% if @alternatives.nil? %>
+			<% if @boycott.nil? %>
+				<p>Pick a company first!</p>
+			<% end %>
+				<p>Nothing here yet!</p>
+		<% else %>
+			<% @alternatives.each do |alternative| %>
+				<li><%= link_to alternative.name, alternative.url %></li>
+			<% end %>
+		<% end %>
+		<h4>Suggest more alternatives!</h4>
+		<%= form_for @alternative do |f| %>
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+			<br />
+			<%= f.label :url %>
+			<%= f.text_field :url %>
+			<%= f.submit "Suggest Alternative" %>
+		<% end %>
+	</div>
+</div>
+
+
+<div class="row politicians">
+	<div class="span-one-third">
+		<h2>Politicians Sponsoring SOPA & Protect IP</h2>
+		<% unless @politicians.nil? %>
+			<ul>
+			<% @politicians.each do |politician| %>
+				<li class="<%= politician.name %>"><%= politician.name %></li>
+			<% end %>
+			</ul>
+		<% end %>
+	</div>
+	<div class="span-one-third">
+		<h2>Fight the Injustice</h2>
+		<h3>[not implemented]</h3>
+		<p>[not implemented]</p>
+	</div>
+	<div class="span-one-third">
+		<h2>Contact</h2>
+		<p>[not implemented]</p>
+	</div>
+</div>

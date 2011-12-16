@@ -1,12 +1,14 @@
 Freenet::Application.routes.draw do
-  get "pages/home"
+  resources :petitions, :only => [:create]
 
-  get "pages/about"
+  resources :politicians, :only => [ :create, :destroy, :update ]
 
-  get "pages/developer"
+  resources :corporations, :only => [ :create, :destroy, :update ]
 
-  get "pages/contact"
-
+	match "/about", :to => "pages#about"
+	match "/developer", :to => "pages#developer"
+	match "/contact", :to => "pages#contact"
+	
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -56,7 +58,7 @@ Freenet::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  	root :to => "pages#home"
 
   # See how all your routes lay out with "rake routes"
 
